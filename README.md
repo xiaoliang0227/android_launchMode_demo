@@ -12,3 +12,68 @@ singleTask模式是比较狠的模式，如果设置了Activity的launchMode为s
 ######singleInstance模式：
 singleInstance模式，简单的说就是可以共享某个Activity。比如说，如果应用1的task容器栈中已经创建AActivity的实例，应用2如果想要调用AActivity则不需要重新创建AActivity的实例，直接可以共用AActivity的实例。
 
+
+###测试步骤及结果
+######使用到的命令(如不知如何使用请google)
+* adb shell
+* dumpsys activity activities
+
+###standard模式跳转实例：
+######MainActivity – StandardModeActivity – SingleTopModeActivity – StandardModeActivity – SingleTaskModeActivity – StandardModeActivity
+
+Activities=[ActivityRecord{dc3115c u0 com.zyl.demo.launchmode/.activity.MainActivity t37}, ActivityRecord{281ef31d u0 com.zyl.demo.launchmode/.activity.StandardModeActivity t37}, ActivityRecord{1ea68d5 u0 com.zyl.demo.launchmode/.activity.SingleTopModeActivity t37}, ActivityRecord{24f679b6 u0 com.zyl.demo.launchmode/.activity.StandardModeActivity t37}, ActivityRecord{c16c753 u0 com.zyl.demo.launchmode/.activity.SingleTaskModeActivity t37}, ActivityRecord{235a6dbc u0 com.zyl.demo.launchmode/.activity.StandardModeActivity t37}]
+
+
+###singleTop模式跳转实例：
+######MainActivity – StandardModeActivity – SingleTopModeActivity – StandardModeActivity – SingleTaskModeActivity – SingleTopModeActivity – SingleTopModeActivity
+
+Activities=[ActivityRecord{19f60dab u0 com.zyl.demo.launchmode/.activity.MainActivity t38}, ActivityRecord{1566727f u0 com.zyl.demo.launchmode/.activity.StandardModeActivity t38}, ActivityRecord{15b23277 u0 com.zyl.demo.launchmode/.activity.SingleTopModeActivity t38}, ActivityRecord{11291550 u0 com.zyl.demo.launchmode/.activity.StandardModeActivity t38}, ActivityRecord{9c32b05 u0 com.zyl.demo.launchmode/.activity.SingleTaskModeActivity t38}, 
+######以下部分被重用
+######ActivityRecord{2bab27b2 u0 com.zyl.demo.launchmode/.activity.SingleTopModeActivity t38}]
+
+
+###singleTask模式跳转实例：
+
+######MainActivity—SingleTaskModeActivity—StandardModeActivity—StandardModeActivity—SingleTaskActivity
+
+Activities=[ActivityRecord{149cb473 u0 com.zyl.demo.launchmode/.activity.MainActivity t35}, 
+######以下部分被重用
+######ActivityRecord{2bdeacf4 u0 com.zyl.demo.launchmode/.activity.SingleTaskModeActivity t35}, 
+
+######以下部分被清除掉
+######ActivityRecord{1ddba651 u0 com.zyl.demo.launchmode/.activity.StandardModeActivity t35}, ActivityRecord{3edad97 u0 com.zyl.demo.launchmode/.activity.StandardModeActivity t35}]
+######ActivityRecord{2bdeacf4 u0 com.zyl.demo.launchmode/.activity.SingleTaskModeActivity t35}] 
+
+
+######MainActivity – StandardModeActivity – StandardModeActivity – StandardModeActivity – SingleTaskModeActivity – StandardModeActivity – StandardModeActivity -- SingleTaskModeActivity
+
+Activities=[ActivityRecord{2bf38438 u0 com.zyl.demo.launchmode/.activity.MainActivity t36}, ActivityRecord{ed8c94e u0 com.zyl.demo.launchmode/.activity.StandardModeActivity t36}, ActivityRecord{28c0b426 u0 com.zyl.demo.launchmode/.activity.StandardModeActivity t36}, ActivityRecord{24263403 u0 com.zyl.demo.launchmode/.activity.StandardModeActivity t36},
+ 
+######以下部分被重用
+######ActivityRecord{2048d3ac u0 com.zyl.demo.launchmode/.activity.SingleTaskModeActivity t36}, 
+
+######以下部分被清除掉
+######ActivityRecord{308226ca u0 com.zyl.demo.launchmode/.activity.StandardModeActivity t36}, ActivityRecord{10c522 u0 com.zyl.demo.launchmode/.activity.StandardModeActivity t36}]
+######ActivityRecord{2048d3ac u0 com.zyl.demo.launchmode/.activity.SingleTaskModeActivity t36}]
+
+
+###singleInstance模式跳转实例：
+
+######MainActivity – StandardModeActivity – SingleInstanceActivity – StandarModeActivity – SingleTopModeActivity
+
+###Task id:#39
+Activities=[ActivityRecord{2361f6d3 u0 com.zyl.demo.launchmode/.activity.MainActivity t39}, ActivityRecord{1b8681e6 u0 com.zyl.demo.launchmode/.activity.StandardModeActivity t39}, 
+######以下Activity实例没有
+######SingleInstanceActivity
+ActivityRecord{233b107 u0 com.zyl.demo.launchmode/.activity.StandardModeActivity t39}, ActivityRecord{1d3013cc u0 com.zyl.demo.launchmode/.activity.SingleTopModeActivity t39}]
+
+###Task id:#40
+Activities=[ActivityRecord{2229e7be u0 com.zyl.demo.launchmode/.activity.SingleInstanceModeActivity t40}]
+
+
+
+
+
+
+
+
