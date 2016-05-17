@@ -44,5 +44,5 @@
       android:background="#ccc"
       android:gravity="center"
       android:minHeight="100dp"
-      android:text="Main Page"/>
+      android:text="Standard Mode Page"/>
 </RelativeLayout>
