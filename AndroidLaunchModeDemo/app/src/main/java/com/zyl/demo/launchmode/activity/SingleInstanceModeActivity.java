@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.zyl.demo.launchmode.R;
 import com.zyl.demo.launchmode.util.LogUtil;
@@ -18,6 +19,8 @@ public class SingleInstanceModeActivity extends AppCompatActivity implements Vie
   private static final String TAG = "SingleInstanceModeActivity";
 
   private Button btnStandard, btnSingleTop, btnSingleTask, btnSingleInstance;
+
+  private TextView tips;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +39,13 @@ public class SingleInstanceModeActivity extends AppCompatActivity implements Vie
     btnSingleTop = (Button) findViewById(R.id.btn_singleTop_mode);
     btnSingleTask = (Button) findViewById(R.id.btn_singleTask_mode);
     btnSingleInstance = (Button) findViewById(R.id.btn_singleInstance_mode);
+    tips = (TextView) findViewById(R.id.tips);
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    tips.setText("SingleInstanceMode Top \n \n" + System.currentTimeMillis());
   }
 
   private void initEvent() {
